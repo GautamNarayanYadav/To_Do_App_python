@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <title>To Do App</title>
+<style>
+body{
+    background-color: orange;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+.table-container
+{
+    padding:0 10%;
+    margin:40px auto 0;
+}
+.heading 
+{
+    font-size: 40 px;
+    text-align: center;
+    color:#f1f1f1;
+    margin-bottom:40px;
+}
+.table 
+{
+    width:100%;
+    border-collapse:collapse;
+}
+.table thead 
+{
+    background-color:#0000FF;
+}
+.table thead tr th 
+{
+    font-size:14px;
+    font-weight:600;
+    letter-spacing:0.35px;
+    color: #FFFFFF;
+    opacity:1;
+    padding:12px;
+    vertical-align:top;
+    border:2px solid #000000;
+}
+.table tbody tr td 
+{
+    font-size:14 px;
+    Letter-spacing:0.35px;
+    font-weight:normal;
+    background-color:yellow;
+    padding:8 px;
+    text-align:center;
+    border:2px solid #000000;
+}
+.design{
+    background-color: rgb(255, 255, 128);
+    margin: 50px 50px 50px 50px;
+}
+</style>
+<div class="design">
+<h1 style="text-align: center; margin-top: 100px;">ToDoApp By <a href='/about'>Gautam Yadav</a></h1>
+    </head>
+    <body >
+    <div class="bg-img">
+<div class="form-box">
+<div class="wrapper">
+        <br>
+        <form acton="/saveinfo" class="form-inline" method="post" style="text-align: center;margin-bottom: -50px;">
+        {% csrf_token %}
+        <label for = "addtask">Add Task:</label>
+        <input type="text" id="addtask" placeholder="Add Task" name="addtask" required>
+        <label for = "time">Add Time:</label>
+        <input type="time" id="time" placeholder="Add Time" name="time" required>
+        <button type="submit" >Add</button>
+</form>
+<br>
+<br>
+<br>
+<div class="table-container">
+                                <br>
+                                    <table class="table" id="dataTable" width="100%" cellspacing="0">
+                                       <thead>
+                                            <tr>
+                                                <th>Tasks</th>
+                                                <th>Time</th>
+                                                <th>Status</th>
+                                                <th>Delete</th>
+                                            </tr>
+                                        </thead>
+                                    {% for info in Add %}
+                                            <tr>
+                                                <td data-label="Tasks">{{info.AddTask}}</td>
+                                                <td data-label="Time">{{info.time}}</td>
+                                                <label class="checkbox" action="/saveinfo" method="get">
+                                                <td><input type="checkbox" name="check" value=""{% if info.published %}checked{% endif %}></td>
+                                                </label>
+                                                <td><a href="{% url 'Delete' info.id %}" class = " btn btn-danger ">Delete</a></td>
+                                            </tr>
+                                 
+                                    {% endfor %}
+                                    </tbody>
+                                    </table>
+    </div>
+</div>
+</body>
+</html>
